@@ -1,53 +1,103 @@
 <!doctype html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="author" content="K. Erdem, P. Mazurek, P. Rarus">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="author" content="K. Erdem, P. Mazurek, P. Rarus">
 
-  <title>XAI</title>
+    <title>XAI</title>
 
-  <link rel="stylesheet" href="dist/reset.css">
-  <link rel="stylesheet" href="dist/reveal.css">
-  <link rel="stylesheet" href="dist/theme/black.css" id="theme">
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/black.css" id="theme">
 
-  <!-- Theme used for syntax highlighting of code -->
-  <link rel="stylesheet" href="css/highlight/isbl-editor-light.css">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="css/highlight/isbl-editor-light.css">
 </head>
 <body>
 <div class="reveal">
-  <div class="slides">
-    <section>
-      <h2>Explainable AI</h2>
-      <small>Kemal Erdem, Piotr Mazurek, Piotr Rarus</small>
-    </section>
-    <section>
-      <h2>Slide 1</h2>
-      <p>
-        ABC
-        $$
-        a_b
-        $$
-      </p>
-      <pre><code data-trim data-noescape>
-(def lazy-fib
-  (concat
-   [0 1]
-   ((fn rfib [a b]
-        (lazy-cons (+ a b) (rfib b (+ a b)))) 0 1)))
-  </code></pre>
-    </section>
-    <section>
-      <h2>Thanks</h2>
-      <blockquote>"There's no such thing as a stupid question!"</blockquote>
-      <p>
-        <small>Kemal Erdem, Piotr Mazurek, Piotr Rarus</small><br/>
-        <small>Presentation avalibe at: <a href="">Links</a></small><br/>
-      </p>
-    </section>
-  </div>
-</div>
+    <div class="slides">
+        <section>
+            <h2>Explainable AI</h2>
+            <small>Kemal Erdem, Piotr Mazurek, Piotr Rarus</small>
+        </section>
 
+
+        <section>
+            <h2>Integrated Gradients (IG)</h2>
+        </section>
+
+        <section>
+            <h2>Visualisation</h2>
+            
+        </section>
+
+        <section>
+            <h2>Engineering Approach</h2>
+            <h4>Use IG implementation from Captum</h4>
+        </section>
+
+        <section data-background-iframe="https://captum.ai/api/integrated_gradients/"
+                 data-background-interactive>
+        </section>
+
+        <section>
+            <h2>How to use it?</h2>
+            <h4>Load torch model</h4>
+        </section>
+
+        <section>
+            <h2>How to use it?</h2>
+            <h4>Put trained model into CaptumAPI object</h4>
+        </section>
+
+        <section>
+            <h2>Enjoy the out-of-the-box model explainability</h2>
+        </section>
+
+        <section>
+            <h2>Ok, work for images, but can we do better?</h2>
+            <h4>Actually yes</h4>
+            <h4>Compatible with wide range of DL models</h4>
+        </section>
+
+        <section>
+            <h2>Visual question answering</h2>
+        </section>
+
+        <section>
+            <h2>Analyzing BERT</h2>
+        </section>
+
+
+        <section>
+            <h2>API is great, but how does it actually work?</h2>
+        </section>
+
+        <section>
+            <h2>Quick recap - what is a gradient?</h2>
+        </section>
+
+        <section>
+            <h2>How can we "integrate" gradients?</h2>
+        </section>
+
+        <section>
+            <h2>Still don't get it?</h2>
+            <h4>Little visualisation</h4>
+        </section>
+
+
+        <section>
+            <h2>Thanks</h2>
+            <blockquote>"There's no such thing as a stupid question!"</blockquote>
+            <p>
+                <small>Kemal Erdem, Piotr Mazurek, Piotr Rarus</small><br/>
+                <small>Presentation avalibe at: <a href="">Links</a></small><br/>
+            </p>
+        </section>
+    </div>
+</div>
 
 
 <script src="dist/reveal.js"></script>
@@ -56,37 +106,37 @@
 <script src="plugin/highlight/highlight.js"></script>
 <script src="plugin/math/math.js"></script>
 <script>
-  // More info about config & dependencies:
-  // - https://github.com/hakimel/reveal.js#configuration
-  // - https://github.com/hakimel/reveal.js#dependencies
-  Reveal.initialize({
-    hash: true,
-    controls: true,
-    progress: true,
-    slideNumber: false,
-    overview: true,
-    center: true,
-    navigationMode: 'default',
-    fragmentInURL: false,
-    embedded: false,
-    preloadIframes: null,
-    autoSlide: 0,
-    autoSlideStoppable: true,
-    defaultTiming: 120,
-    mouseWheel: false,
-    previewLinks: false,
-    transition: 'slide', // none/fade/slide/convex/concave/zoom
-    transitionSpeed: 'default', // default/fast/slow
-    backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
-    display: 'block',
-    math: {
-      mathjax: 'plugin/math/MathJax.js',
-      config: 'TeX-AMS_HTML-full', // See http://docs.mathjax.org/en/latest/config-files.html
-      // pass other options into `MathJax.Hub.Config()`
-      TeX: { Macros: { RR: "{\\bf R}" } }
-    },
-    plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath ]
-  });
+    // More info about config & dependencies:
+    // - https://github.com/hakimel/reveal.js#configuration
+    // - https://github.com/hakimel/reveal.js#dependencies
+    Reveal.initialize({
+        hash: true,
+        controls: true,
+        progress: true,
+        slideNumber: false,
+        overview: true,
+        center: true,
+        navigationMode: 'default',
+        fragmentInURL: false,
+        embedded: false,
+        preloadIframes: null,
+        autoSlide: 0,
+        autoSlideStoppable: true,
+        defaultTiming: 120,
+        mouseWheel: false,
+        previewLinks: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        transitionSpeed: 'default', // default/fast/slow
+        backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+        display: 'block',
+        math: {
+            mathjax: 'plugin/math/MathJax.js',
+            config: 'TeX-AMS_HTML-full', // See http://docs.mathjax.org/en/latest/config-files.html
+            // pass other options into `MathJax.Hub.Config()`
+            TeX: {Macros: {RR: "{\\bf R}"}}
+        },
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMath]
+    });
 </script>
 </body>
 </html>
