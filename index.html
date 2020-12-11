@@ -12,7 +12,9 @@
     <link rel="stylesheet" href="dist/theme/black.css" id="theme">
 
     <!-- Theme used for syntax highlighting of code -->
-    <link rel="stylesheet" href="css/highlight/isbl-editor-light.css">
+    <!--    <link rel="stylesheet" href="css/highlight/isbl-editor-light.css">-->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+
 </head>
 <body>
 <div class="reveal">
@@ -27,9 +29,14 @@
             <h2>Integrated Gradients (IG)</h2>
         </section>
 
+        <section data-background-iframe="https://arxiv.org/pdf/1703.01365.pdf"
+                 data-background-interactive>
+        </section>
+
+
         <section>
             <h2>Visualisation</h2>
-            
+
         </section>
 
         <section>
@@ -41,18 +48,86 @@
                  data-background-interactive>
         </section>
 
+
         <section>
             <h2>How to use it?</h2>
-            <h4>Load torch model</h4>
+            <h4>Load your data</h4>
+            <pre data-id="code-animation"><code class="python" data-trim data-line-numbers="">
+transform = transforms.Compose([
+ transforms.Resize(224),
+ transforms.ToTensor(),
+ transforms.Normalize()
+])
+
+img = Image.open('image/for/which/I/need/prediction.jpg')
+
+input = transform(img).unsqueeze(0)
+
+input.size()
+>> torch.Size(1, 3, 224, 224)
+					</code></pre>
+
+            <small>Inspired by the <a href="">official Captum tutorial</a></small>
         </section>
 
         <section>
             <h2>How to use it?</h2>
-            <h4>Put trained model into CaptumAPI object</h4>
+
+            <h4>Load the trained model</h4>
+            <pre data-id="code-animation"><code class="python" data-trim data-line-numbers="">
+model = models.resnet18(pretrained=True)
+model = model.eval()
+            </code></pre>
+
+            <h4>Get the prediction</h4>
+            <pre data-id="code-animation"><code class="python" data-trim data-line-numbers="">
+output = F.softmax(model(input), dim=1)
+output.size()
+>> torch.Size(1, 1000)
+            </code></pre>
+
+            <pre data-id="code-animation"><code class="python" data-trim data-line-numbers="">
+prediction_score, pred_label_idx = torch.topk(output, 1)
+pred_label_idx.squeeze_()
+>> 21
+            </code></pre>
+
+        </section>
+
+        <section>
+            <h2>How to use it?</h2>
+            <h4>Use your model as an input to Captum Object</h4>
+
+            <pre data-id="code-animation"><code class="python" data-trim data-line-numbers="">
+from captum.attr import IntegratedGradients
+integrated_gradients = IntegratedGradients(model)
+
+pred_label_idx = 21
+
+attributions_ig = integrated_gradients.attribute(input,
+                                    target=pred_label_idx,
+                                    n_steps=200)
+attributions_ig.size()
+>> torch.Size([1, 3, 224, 224])
+
+        </code></pre>
+
+            <pre data-id="code-animation"><code class="python" data-trim data-line-numbers="">
+from captum.attr import NoiseTunnel
+
+noise_tunnel = NoiseTunnel(integrated_gradients)
+attributions_ig_nt = noise_tunnel.attribute(input,
+                n_samples=10, target=pred_label_idx)
+attributions_ig_nt.size()
+>> torch.Size([1, 3, 224, 224])
+
+</code></pre>
         </section>
 
         <section>
             <h2>Enjoy the out-of-the-box model explainability</h2>
+				<img src="assets/mockup_intergrated_gradients.png" width="80%">
+
         </section>
 
         <section>
@@ -113,7 +188,7 @@
         hash: true,
         controls: true,
         progress: true,
-        slideNumber: false,
+        slideNumber: true,
         overview: true,
         center: true,
         navigationMode: 'default',
@@ -126,7 +201,7 @@
         mouseWheel: false,
         previewLinks: false,
         transition: 'slide', // none/fade/slide/convex/concave/zoom
-        transitionSpeed: 'default', // default/fast/slow
+        transitionSpeed: 'fast', // default/fast/slow
         backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
         display: 'block',
         math: {
