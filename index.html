@@ -278,8 +278,8 @@ scaled_inputs = [baseline + (i / steps) * (input - baseline)
             <h2>Calculate gradients</h2>
 
             \begin{equation}
-            IG^{a}_{i}(x)=(x_{i}-x'_{i})\times\sum_{k=1}^{m}\frac{\partial F(x' + \frac{k}{m}\times(x - x'))}{\partial
-            x_{i}} \times \frac{1}{m}
+            \sum_{k=1}^{m}\frac{\partial F(x' + \frac{k}{m}\times(x - x'))}{\partial
+            x_{i}}
             \end{equation}
 
             <pre data-id="code-animation"><code class="python" data-trim data-line-numbers="">
@@ -356,7 +356,7 @@ integrated_grad = (input - baseline) * avg_grads
             <blockquote>"There's no such thing as a stupid question!"</blockquote>
             <p>
                 <small>Kemal Erdem, Piotr Mazurek, Piotr Rarus</small><br/>
-                <small>Presentation avalibe at: <a href="">Links</a></small><br/>
+                <small>Presentation avalibe at: <a href="https://tugot17.github.io/XAI-Presentation/#/">https://tugot17.github.io/XAI-Presentation</a></small><br/>
             </p>
         </section>
     </div>
