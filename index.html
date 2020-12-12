@@ -60,7 +60,8 @@
 
         <section>
             <h2>Visualisation</h2>
-            <a href="https://www.tensorflow.org/tutorials/interpretability/integrated_gradients"><img src="assets/ig_visualisation.png"></a>
+            <a href="https://www.tensorflow.org/tutorials/interpretability/integrated_gradients"><img
+                    src="assets/ig_visualisation.png"></a>
         </section>
 
         <section>
@@ -185,14 +186,16 @@ attributions_ig = integrated_gradients.attribute(tokenized_question,
 
         <section>
             <h2>Baseline</h2>
-            <a href="https://www.tensorflow.org/tutorials/interpretability/integrated_gradients"><img src="assets/ig_baseline.png"></a>
+            <a href="https://www.tensorflow.org/tutorials/interpretability/integrated_gradients"><img
+                    src="assets/ig_baseline.png"></a>
             <blockquote>"Baseline input is meant to represent “absence” of feature input"</blockquote>
 
         </section>
 
         <section>
             <h2>Path intuition</h2>
-            <a href="https://www.tensorflow.org/tutorials/interpretability/integrated_gradients"><img src="assets/ig_path_example.png"></a>
+            <a href="https://www.tensorflow.org/tutorials/interpretability/integrated_gradients"><img
+                    src="assets/ig_path_example.png"></a>
         </section>
 
         <section>
@@ -206,7 +209,8 @@ attributions_ig = integrated_gradients.attribute(tokenized_question,
 
         <section>
             <h2>Gradients in path</h2>
-            <a href="https://www.tensorflow.org/tutorials/interpretability/integrated_gradients"><img src="assets/ig_basic_intuition.png"></a>
+            <a href="https://www.tensorflow.org/tutorials/interpretability/integrated_gradients"><img
+                    src="assets/ig_basic_intuition.png"></a>
         </section>
 
         <section>
@@ -229,7 +233,8 @@ attributions_ig = integrated_gradients.attribute(tokenized_question,
             <h2>Integral approximation</h2>
 
             \begin{equation}
-            IG^{a}_{i}(x)=(x_{i}-x'_{i})\times\sum_{k=1}^{m}\frac{\partial F(x' + \frac{k}{m}\times(x - x'))}{\partial x_{i}} \times \frac{1}{m}
+            IG^{a}_{i}(x)=(x_{i}-x'_{i})\times\sum_{k=1}^{m}\frac{\partial F(x' + \frac{k}{m}\times(x - x'))}{\partial
+            x_{i}} \times \frac{1}{m}
             \end{equation}
 
             Where:<br>
@@ -249,23 +254,82 @@ attributions_ig = integrated_gradients.attribute(tokenized_question,
 
         <section>
             <h2>Can we code it?</h2>
+
+            \begin{equation}
+            IG^{a}_{i}(x)=(x_{i}-x'_{i})\times\sum_{k=1}^{m}\frac{\partial F(x' + \frac{k}{m}\times(x - x'))}{\partial
+            x_{i}} \times \frac{1}{m}
+            \end{equation}
+
             <h4>Yes we can</h4>
+            <pre data-id="code-animation"><code class="python" data-trim data-line-numbers="">
+baseline = torch.zeros_like(input)
+
+input.requires_grad = True
+
+steps=50
+
+scaled_inputs = [baseline + (i / steps) * (input - baseline)
+                for i in range(0, steps)]
+
+</code></pre>
+        </section>
+
+        <section>
+            <h2>Calculate gradients</h2>
+
+            \begin{equation}
+            IG^{a}_{i}(x)=(x_{i}-x'_{i})\times\sum_{k=1}^{m}\frac{\partial F(x' + \frac{k}{m}\times(x - x'))}{\partial
+            x_{i}} \times \frac{1}{m}
+            \end{equation}
+
+            <pre data-id="code-animation"><code class="python" data-trim data-line-numbers="">
+gradients = []
+for scaled_input in scaled_inputs:
+    output = F.softmax(model(scaled_input), dim=1)
+    output = output.gather(1, pred_label_idx)
+
+    model.zero_grad()
+    output.backward()
+
+    gradient = input.grad.detach().cpu().numpy()[0]
+    gradients.append(gradient)
+
+</code></pre>
+        </section>
+
+
+<section>
+            <h2>Sum gradients</h2>
+
+            \begin{equation}
+            IG^{a}_{i}(x)=(x_{i}-x'_{i})\times\sum_{k=1}^{m}\frac{\partial F(x' + \frac{k}{m}\times(x - x'))}{\partial
+            x_{i}} \times \frac{1}{m}
+            \end{equation}
+
+            <pre data-id="code-animation"><code class="python" data-trim data-line-numbers="">
+avg_grads = np.average(gradients, axis=0)
+integrated_grad = (input - baseline) * avg_grads
+
+</code></pre>
         </section>
 
         <section>
             <h2>How does it look in practice?</h2>
-            <a href="https://www.tensorflow.org/tutorials/interpretability/integrated_gradients"><img src="assets/ig_path_example.png"></a>
-            <a href="https://www.tensorflow.org/tutorials/interpretability/integrated_gradients"><img src="assets/ig_proba_plot.png" width="50%"></a>
+            <a href="https://www.tensorflow.org/tutorials/interpretability/integrated_gradients"><img
+                    src="assets/ig_path_example.png"></a>
+            <a href="https://www.tensorflow.org/tutorials/interpretability/integrated_gradients"><img
+                    src="assets/ig_proba_plot.png" width="50%"></a>
         </section>
 
         <section>
             <h2>Attribution visualisation</h2>
-            <a href="https://www.tensorflow.org/tutorials/interpretability/integrated_gradients"><img src="assets/ig_visualisation.png" width="40%"></a>
+            <a href="https://www.tensorflow.org/tutorials/interpretability/integrated_gradients"><img
+                    src="assets/ig_visualisation.png" width="40%"></a>
         </section>
 
         <section>
             <h2>Open questions:</h2>
-            <h4>How to choose good baseline</h4>
+            <h4>How to choose a good baseline</h4>
             <h4> Do we need to bother with adding "zero" gradients?</h4>
         </section>
 
