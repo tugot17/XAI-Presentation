@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" href="dist/reset.css">
     <link rel="stylesheet" href="dist/reveal.css">
-    <link rel="stylesheet" href="dist/theme/black.css" id="theme">
+    <link rel="stylesheet" href="dist/theme/sky.css" id="theme">
 
     <!-- Theme used for syntax highlighting of code -->
     <!--    <link rel="stylesheet" href="css/highlight/isbl-editor-light.css">-->
@@ -46,10 +46,10 @@
 
         <section>
             <h2>Integrated Gradients (IG)</h2>
-            \begin{aligned}
+            \begin{equation}
             IG_{i}(x)::=\left(x_{i}-x_{i}^{\prime}\right) \times \int_{\alpha=0}^{1} \frac{\partial
             F\left(x^{\prime}+\alpha \times\left(x-x^{\prime}\right)\right)}{\partial x_{i}} d \alpha
-            \end{aligned}
+            \end{equation}
         </section>
 
         <section data-background-iframe="https://arxiv.org/pdf/1703.01365.pdf"
@@ -59,7 +59,7 @@
 
         <section>
             <h2>Visualisation</h2>
-
+            <a href="https://www.tensorflow.org/tutorials/interpretability/integrated_gradients"><img src="assets/ig_visualisation.png"></a>
         </section>
 
         <section>
@@ -179,10 +179,33 @@ attributions_ig = integrated_gradients.attribute(tokenized_question,
 
         <section>
             <h2>API is great, but how does it actually work?</h2>
+            <h4 class="fragment">To answer that we need to </h4>
+        </section>
+
+        <section>
+            <h2>Baseline</h2>
+            <a href="https://www.tensorflow.org/tutorials/interpretability/integrated_gradients"><img src="assets/ig_baseline.png"></a>
+            <blockquote>"Baseline input is meant to represent “absence” of feature input"</blockquote>
+
+        </section>
+
+        <section>
+            <h2>Path intuition</h2>
+            <a href="https://www.tensorflow.org/tutorials/interpretability/integrated_gradients"><img src="assets/ig_path_example.png"></a>
         </section>
 
         <section>
             <h2>Quick recap - what is a gradient?</h2>
+            \begin{equation}
+            \frac{\partial F(x)}{\partial x}
+            \end{equation}
+
+            <blockquote>"How F(x) changes is we change x"</blockquote>
+        </section>
+
+        <section>
+            <h2>Gradients in path</h2>
+            <a href="https://www.tensorflow.org/tutorials/interpretability/integrated_gradients"><img src="assets/ig_basic_intuition.png"></a>
         </section>
 
         <section>
@@ -194,8 +217,7 @@ attributions_ig = integrated_gradients.attribute(tokenized_question,
             <h4>Little visualisation</h4>
         </section>
 
-        <section data-background-iframe="https://distill.pub/2020/attribution-baselines/"
-                 data-background-interactive>
+        <section data-background-iframe="https://distill.pub/2020/attribution-baselines/">
         </section>
 
 
