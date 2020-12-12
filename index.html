@@ -1,4 +1,5 @@
 <!doctype html>
+<!doctype html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -212,7 +213,7 @@ attributions_ig = integrated_gradients.attribute(tokenized_question,
             <h2>How can we "integrate" gradients?</h2>
 
             \begin{equation}
-            IG_{i}(x)::=\left(x_{i}-x_{i}^{\prime}\right) \times \int_{\alpha=0}^{1} \frac{\partial
+            IG_{i}(x)=\left(x_{i}-x_{i}^{\prime}\right) \times \int_{\alpha=0}^{1} \frac{\partial
             F\left(x^{\prime}+\alpha \times\left(x-x^{\prime}\right)\right)}{\partial x_{i}} d \alpha
             \end{equation}
 
@@ -228,7 +229,7 @@ attributions_ig = integrated_gradients.attribute(tokenized_question,
             <h2>Integral approximation</h2>
 
             \begin{equation}
-            IG^{a}_{i}(x)::=(x_{i}-x'_{i})\times\sum_{k=1}^{m}\frac{\partial F(x' + \frac{k}{m}\times(x - x'))}{\partial x_{i}} \times \frac{1}{m}
+            IG^{a}_{i}(x)=(x_{i}-x'_{i})\times\sum_{k=1}^{m}\frac{\partial F(x' + \frac{k}{m}\times(x - x'))}{\partial x_{i}} \times \frac{1}{m}
             \end{equation}
 
             Where:<br>
@@ -263,27 +264,28 @@ attributions_ig = integrated_gradients.attribute(tokenized_question,
         </section>
 
         <section>
-            <h2>Everything is great</h2>
-            <h4>... but is it really so simple?</h4>
-            <h4 class="fragment">Unfortunately not</h4>
+            <h2>Open questions:</h2>
+            <h4>How to choose good baseline</h4>
+            <h4> Do we need to bother with adding "zero" gradients?</h4>
+        </section>
+
+        <section data-background-iframe="https://distill.pub/2020/attribution-baselines/">
         </section>
 
         <section>
-            <h2>Problem 1</h2>
-            <h4>How to choose the right baseline?</h4>
+            <h2>XAI challenges</h2>
+            <h4>How to evaluate explanation?</h4>
         </section>
 
         <section>
-            <h2>Problem 1</h2>
-            <h4>How to choose the right baseline?</h4>
+            <h2>XAI challenges</h2>
+            <h4>Explaining wrong predictions</h4>
         </section>
-
 
         <section>
-            <h2>Problem 2</h2>
-            <h4>Why do we bother with adding "zero" gradients?</h4>
+            <h2>XAI challenges</h2>
+            <h4>Explanation don't have any sense, whatsoever</h4>
         </section>
-
 
         <section>
             <h2>Thanks</h2>
