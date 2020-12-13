@@ -59,12 +59,39 @@
                     src="https://raw.githubusercontent.com/SinaMohseni/Awesome-XAI-Evaluation/master/figures/target-users.png"></a>
         </section>
 
-        <section data-background-iframe="https://arxiv.org/pdf/1901.09392.pdf">
+        <section data-background-iframe="https://distill.pub/2020/attribution-baselines/">
         </section>
 
         <section>
+            <h2>Two distinct approaches</h2>
+            <h4>Human-grounded Measures</h4>
+            <h4>Computational Measures</h4>
+        </section>
+
+        <section>
+            <h2>Human-grounded Measures</h2>
+            <h4>Metrics like IoU</h4>
+            <h4>Researchers conduct surveys where they ask: "which part of data is important"   </h4>
+        </section>
+
+        <section data-background-iframe="https://arxiv.org/pdf/1801.05075.pdf">
+        </section>
+
+        <section>
+            <h2>Computational Measures</h2>
+            <h4>Dozens of approaches </h4>
+            <h4>No established standards</h4>
+            <h4>Open research area</h4>
+        </section>
+
+
+        <section data-background-iframe="https://arxiv.org/pdf/1806.10758.pdf">
+        </section>
+
+
+        <section>
             <h2>Infidelity</h2>
-            <h4></h4>
+            <h4>How much explanation differ given a perturbed input image</h4>
         </section>
 
         <section data-background-iframe="https://arxiv.org/pdf/1901.09392.pdf">
@@ -76,45 +103,40 @@
 
         <section>
             <h2>Infidelity</h2>
-            <h4>code here</h4>
-        </section>
 
-        <section>
-            <h2>Sensitivity</h2>
-            <h4></h4>
-        </section>
+            <pre data-id="code-animation"><code class="python" data-trim data-line-numbers="">
 
-        <section data-background-iframe="https://ojs.aaai.org//index.php/AAAI/article/view/4252">
-        </section>
+net = ImageClassifier()
+saliency = Saliency(net)
 
-        <section data-background-iframe="https://captum.ai/api/metrics.html#sensitivity">
-        </section>
+# Computes saliency maps for class 3 for the input image.
+attribution = saliency.attribute(input, target=3)
 
-        <section>
-            <h2>Sensitivity</h2>
-            <h4>code here</h4>
-        </section>
+# define a perturbation function for the input
+def perturb_fn(inputs):
+    noise = torch.tensor(np.random.normal(0, 0.003, inputs.shape)).float()
+    return noise, inputs - noise
 
-        <section>
-            <h2>Sensitivity</h2>
-            <h4></h4>
+infidelity(net, perturb_fn, input, attribution)
+>> 0.2177
+					</code></pre>
         </section>
 
         <section>
             <h2>Other</h2>
-            <h4></h4>
+            <h4>We remove "important" inputs and network confidence should decrease</h4>
         </section>
 
         <section>
             <h2>XAI challenges</h2>
             <h4>How to explain a wrong prediction</h4>
-           <img src="assets/wrong_pred.png">
+            <img src="assets/wrong_pred.png">
         </section>
 
         <section>
             <h2>Wrong prediction</h2>
             <h4>Explanation makes even less sense</h4>
-           <img src="assets/wrong_pred_cats.png">
+            <img src="assets/wrong_pred_cats.png">
         </section>
 
         <section>
@@ -129,6 +151,16 @@
             <h2>Ok, I'm hyped</h2>
             <h4>Where I should start my PhD</h4>
         </section>
+
+        <section data-background-iframe="https://hai.cs.washington.edu/">
+        </section>
+
+
+
+        <section data-background-iframe="http://pbiecek.github.io/jobs.html">
+        </section>
+
+
 
         <section>
             <h2>TLDR</h2>
