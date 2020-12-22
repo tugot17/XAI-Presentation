@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" href="dist/reset.css">
     <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/custom.css">
     <link rel="stylesheet" href="dist/theme/sky.css" id="theme">
 
     <!-- Theme used for syntax highlighting of code -->
@@ -20,31 +21,263 @@
 <body>
 <div class="reveal">
     <div class="slides">
-        <section>
-            <h2>Explainable AI</h2>
-            <small>Kemal Erdem, Piotr Mazurek, Piotr Rarus</small>
+        <section
+          data-background-image="https://images.fineartamerica.com/images-medium-large-5/a-police-officer-in-a-futuristic-smart-car-pulls-paul-noth.jpg"
+          data-background-size="contain"
+          data-background-color="white"
+          data-background-position="left"
+          data-transition="none"
+        >
+            <div
+              style="text-align: right; margin-top: 25vh">
+            <h2 style="text-align: center; width: 35%; margin-left: auto; white-space: nowrap; font-size: 2.81em;">Explainable <br/>AI</h2>
+            <small style="text-align: center; width: 35%; margin-left: auto; font-size: 0.71em;">Kemal Erdem, Piotr Mazurek, Piotr Rarus</small>
+
+            </div>
         </section>
 
-        <section>
+        <section class="center">
             <h2>Agenda</h2>
             <ul>
-                <li>XAI Introduction</li>
-                <li>LIME</li>
-                <li>GradCAM</li>
+                <li>Why XAI and Where XAI?</li>
+                <li>Which XAI? (available methods)</li>
                 <li>Integrated Gradients</li>
+                <li>How to use it?</li>
                 <li>Potential issues with XAI methods</li>
             </ul>
         </section>
 
-        <section>
-            <h2>XAI Approaches</h2>
-            <ul>
-                <li>Attribution methods</li>
-                <li>...</li>
-            </ul>
+        <section class="center">
+            <span class="heading">Why XAI and Where XAI?</span>
+            <p class="display-row">
+                <img src="assets/p1/rock.png" style="height: 60vh">
+                <small class="caption">Source: AAAI'20 Conference</small>
+            </p>
         </section>
 
-        <section>
+        <section class="center">
+            <span class="heading">Wrong Decisions might be costly</span>
+            <p class="display-row">
+            <p>
+                <img src="assets/p1/tesla-crash2.jpg">
+                <img src="assets/p1/tesla-crash1.jpg">
+            </p>
+            <small class="caption">Source: <a href="https://taiwanenglishnews.com/tesla-on-autopilot-crashes-into-overturned-truck/">https://taiwanenglishnews.com/tesla-on-autopilot-crashes-into-overturned-truck/</a></small>
+            </p>
+        </section>
+
+        <section class="center">
+            <span class="heading">But XIA can help us improve models</span>
+            <p class="display-row">
+                <img src="assets/p1/improve-model.png" style="height: 60vh">
+                <small class="caption">Source: W. Samek, A. Binder, MICCAI’18</small>
+            </p>
+        </section>
+
+        <section class="center">
+            <span class="heading">And we can learn from it</span>
+            <p class="display-row">
+                <img src="assets/p1/alphago-move.gif" style="height: 70vh">
+                <small class="caption">Source: <a href="https://www.youtube.com/watch?v=WXuK6gekU1Y">Google DeepMind beating world champion Lee Se-Dol at GO</a></small>
+            </p>
+        </section>
+
+        <section class="center">
+            <span class="heading">The Law</span>
+            <p>
+                <img src="assets/p1/california-act.png" style="height: 20vh">
+                <img src="assets/p1/gdpr.jpg" style="height: 20vh">
+                <img src="assets/p1/congress.png" style="height: 20vh">
+            </p>
+            <blockquote>"Article 22 of <b>GDPR</b> empowers individuals with
+                the <b>right to demand an explanation of how
+                an AI system made a decision that affects
+                    them</b>" - <span style="text-transform: none !important; font-style: normal !important;">European Commission</span></blockquote>
+            <blockquote>"Provide an <b>assessment of the risks posed by
+                the automated decision system</b> to the privacy or security and the <b>risks that contribute to inaccurate, unfair,
+                biased, or discriminatory decisions</b> impacting consumers" - <span style="text-transform: none !important; font-style: normal !important;">Algorithmic Accountability Act 2019</span></blockquote>
+        </section>
+
+        <section class="center">
+            <span class="heading">Which XAI?</span><br/><br/>
+            <ul>
+                <li>Surrogate Model Based </li>
+                <li>Attribution Based</li>
+                <li>Contrastive Explanations</li>
+                <li>Counterfactual / Recourse Based</li>
+                <li>Example similarity</li>
+            </ul>
+        </section>
+        <section class="center">
+            <span class="heading">Surrogate Model Based Explanation</span><br/><br/>
+            <p class="display-row">
+                <img src="assets/p1/black-box.png" style="height: 60vh">
+                <small class="caption">Black Box model</small>
+            </p>
+        </section>
+        <section class="center">
+            <span class="heading">Surrogate Model Based Explanation</span><br/><br/>
+            <p class="display-row">
+                <img src="assets/p1/global-surrogate.png" style="height: 60vh">
+                <small class="caption">Global Surrogate model</small>
+            </p>
+        </section>
+        <section class="center">
+            <span class="heading">Surrogate Model Based Explanation</span><br/><br/>
+            <p class="display-row">
+                <img src="assets/p1/complex-tree.png" style="height: 60vh">
+                <small class="caption">Source: <a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.270.2463&rep=rep1&type=pdf">J48 and VTJ48 decision trees doi:10.1.1.270.2463</a></small>
+            </p>
+        </section>
+        <section class="center">
+            <span class="heading-secondary">LIME - Local Interpretable Model agnostic Explanations</span><br/><br/>
+            <div class="r-stack">
+                <p class="display-row">
+                    <img src="assets/p1/lime1.png" style="height: 70vh">
+                    <small class="caption">Source: <a href="https://christophm.github.io/interpretable-ml-book/index.html">Interpretable Machine Learning - Christoph Molnar</a></small>
+                </p>
+                <p class="display-row fragment">
+                    <img src="assets/p1/lime2.png" style="height: 70vh">
+                    <small class="caption">Source: <a href="https://christophm.github.io/interpretable-ml-book/index.html">Interpretable Machine Learning - Christoph Molnar</a></small>
+                </p>
+                <p class="display-row fragment">
+                    <img src="assets/p1/lime3.png" style="height: 70vh">
+                    <small class="caption">Source: <a href="https://christophm.github.io/interpretable-ml-book/index.html">Interpretable Machine Learning - Christoph Molnar</a></small>
+                </p>
+                <p class="display-row fragment">
+                    <img src="assets/p1/lime4.png" style="height: 70vh">
+                    <small class="caption">Source: <a href="https://christophm.github.io/interpretable-ml-book/index.html">Interpretable Machine Learning - Christoph Molnar</a></small>
+                </p>
+            </div>
+        </section>
+        <section class="center">
+            <span class="heading">Attribution Based Explanation</span><br/><br/>
+            <p class="display-row">
+                <span>You have access to the model's structure</span>
+            </p>
+        </section>
+        <section class="center">
+            <span class="heading">Integrated Gradients</span><br/><br/>
+            <p class="display-row">
+                $$
+                IntegratedGrads_{i}(x) ::= (x_{i} - x'_{i})\times\int_{\alpha=0}^1\frac{\partial F(x'+\alpha \times (x - x'))}{\partial x_i}{d\alpha}
+                $$
+                $$
+                IntegratedGrads^{approx}_{i}(x)::=(x_{i}-x'_{i})\times\sum_{k=1}^{m}\frac{\partial F(x' + \frac{k}{m}\times(x - x'))}{\partial x_{i} } \times \frac{1}{m}
+                $$
+            </p>
+            <small class="caption">Source: <a href="https://arxiv.org/abs/1703.01365">Axiomatic Attribution for Deep Networks - M. Sundararajan, A. Taly, Q. Yan</a></small>
+        </section>
+        <section class="center">
+            <span class="heading">Integrated Gradients - variables</span><br/><br/>
+            <ul>
+                <li>$i$ - feature</li>
+                <li>$x$ - input (image)</li>
+                <li>$x'$ - baseline (image)</li>
+                <li>$\alpha$ - interpolation constant</li>
+                <li>$k$ - scaled interpolation constant</li>
+                <li>$m$ - number of steps</li>
+                <li>$(x_{i}-x'_{i})$ - scale factor</li>
+                <li>$F()$ - model's prediction function</li>
+                <li>$\frac{\partial F}{\partial x_{i} }$ - gradient relative to feature $x_i$</li>
+            </ul>
+        </section>
+        <section class="center">
+            <span class="heading">Test subjects</span><br/><br/>
+            <div class="display-row">
+                <p>
+                    <img src="assets/p1/gp-rab.png" style="height: 60vh">
+                    <img src="assets/p1/gp-bee.png" style="height: 60vh">
+                </p>
+                <small class="caption">Source: <a href="https://www.petsmart.com/small-pet/toys-and-habitat-accessories/small-pet-costumes/">https://www.petsmart.com/small-pet/toys-and-habitat-accessories/small-pet-costumes/</a></small>
+            </div>
+        </section>
+        <section class="center">
+            <span class="heading">Interpolation</span><br/><br/>
+            <div class="display-row">
+                <div style="display: flex">
+                    <img src="assets/p1/baseline-img.png" style="height: 30vh" />
+                    <div style="width: 50vw; font-size: 0.6em; padding-top: 5vh;">$$IntegratedGrads^{approx}_{i}(x)::=(x_{i}-x'_{i})\times\sum_{k=1}^{m}\frac{\partial F(\overbrace{x' + \frac{k}{m}\times(x - x')}^\text{interpolate m images at k intervals})}{\partial x_{i} } \times \frac{1}{m}$$
+                    </div>
+                </div>
+                <img src="assets/p1/gp-alpha.png" style="height: 30vh" />
+                <small class="caption">Interpolation process</small>
+            </div>
+        </section>
+        <section class="center">
+            <span class="heading">Compute Gradients</span><br/><br/>
+            <div class="display-row">
+                <div>
+                    $$
+                    IntegratedGrads^{approx}_{i}(x)::=(x_{i}-x'_{i})\times\sum_{k=1}^{m}\frac{\overbrace{\partial F(\text{interpolated images})}^\text{compute gradients} }{\partial x_{i} } \times \frac{1}{m}
+                    $$
+                </div>
+                <img src="assets/p1/grads.png" style="height: 30vh" />
+            </div>
+        </section>
+        <section class="center">
+            <span class="heading">Compute Gradients</span><br/><br/>
+            <div class="display-row">
+                <div style="font-size: 0.8em;">
+                    $$
+                    IntegratedGrads^{approx}_{i}(x)::=(x_{i}-x'_{i})\times \overbrace{\sum_{k=1}^{m} }^\text{Sum m local gradients}
+                    \text{gradients(interpolated images)} \times \overbrace{\frac{1}{m} }^\text{Divide by m steps}
+                    $$
+                </div>
+            </div>
+        </section>
+        <section class="center" data-background-color="white">
+<!--            <span class="heading">Results</span><br/><br/>-->
+            <div class="r-stack display-row">
+                <div style="margin-left: 10vw; margin-top: 10vh; font-size: 1.4em">
+                    <span style="width: 25vw">Results</span>
+                </div>
+                <div class="display-column fragment fade-in-then-out" data-transition="none">
+                    <span style="width: 25vw">Class: <b>"guinea pig"</b></span>
+                    <img src="assets/p1/gp-gp-pred.png" style="height: 90vh" />
+                </div>
+                <div class="display-column fragment fade-in-then-out" data-transition="none">
+                    <span style="width: 25vw">Class: <b>"bee"</b></span>
+                    <img src="assets/p1/gp-bee-pred.png" style="height: 90vh" />
+                </div>
+                <div class="display-column fragment fade-in-then-out" data-transition="none">
+                    <span style="width: 25vw">Class: <b>"guinea pig"</b></span>
+                    <img src="assets/p1/rab-gp-pred.png" style="height: 90vh" />
+                </div>
+                <div class="display-column fragment fade-in-then-out" data-transition="none">
+                    <span style="width: 25vw">Class: <b>"hare"</b></span>
+                    <img src="assets/p1/rab-rab-pred.png" style="height: 90vh" />
+                </div>
+            </div>
+        </section>
+        <section class="center">
+            <span class="heading">Contrastive Explanations</span><br/><br/>
+            <span >Why Spoonbill, rather than Flamingo?</span><br/><br/>
+            <p class="display-row">
+                <div>
+                    <img src="assets/p1/contrastive-gradcam.png" style="height: 50vh" />
+                    <img src="assets/p1/contrastive-example.png" style="height: 50vh" />
+                </div>
+                <small class="caption">Source: <a href="https://arxiv.org/abs/2008.00178">Contrastive Explanations in Neural Networks - 2020 - M. Prabhushankar, G. Kwon, D. Temel, G. AlRegib</a></small>
+            </p>
+        </section>
+        <section class="center">
+            <span class="heading">Counterfactual / Recourse Based Explanations</span><br/><br/>
+            <span>How to change X to predict Y?</span><br/><br/>
+            <p class="display-row">
+                <img src="assets/p1/counterfactual.png" style="height: 50vh" />
+                <small class="caption">Source: <a href="https://arxiv.org/abs/2009.05487">Counterfactual Explanations & Adversarial Examples -- Common Grounds, Essential Differences, and Potential Transfers - 2020 - T. Freiesleben</a></small>
+            </p>
+        </section>
+        <section class="center">
+            <span class="heading">Example similarity Explanations</span><br/><br/>
+            <p class="display-row">
+                <img src="assets/p1/example-based.png" style="height: 60vh">
+                <small class="caption">Author: <a href="https://twitter.com/karpathy">Andrej Karpathy</a>, generated from <a href="http://www.image-net.org/challenges/LSVRC/2014/">ILSVRC 2012 images</a></small>
+            </p>
+        </section>
+
+        <section class="center">
             <h2>XAI challenges</h2>
             <h4>How to evaluate explanation?</h4>
             <h4>Why one explanation is better then another</h4>
@@ -53,7 +286,7 @@
         <section data-background-iframe="https://distill.pub/2020/attribution-baselines/">
         </section>
 
-        <section>
+        <section class="center">
             <h2>How to Evaluate XAI?</h2>
             <a href="https://github.com/SinaMohseni/Awesome-XAI-Evaluation#how-to-evaluate-xai"><img
                     src="https://raw.githubusercontent.com/SinaMohseni/Awesome-XAI-Evaluation/master/figures/target-users.png"></a>
@@ -62,13 +295,13 @@
         <section data-background-iframe="https://distill.pub/2020/attribution-baselines/">
         </section>
 
-        <section>
+        <section class="center">
             <h2>Two distinct approaches</h2>
             <h4>Human-grounded Measures</h4>
             <h4>Computational Measures</h4>
         </section>
 
-        <section>
+        <section class="center">
             <h2>Human-grounded Measures</h2>
             <h4>Metrics like IoU</h4>
             <h4>Researchers conduct surveys where they ask: "which part of data is important"   </h4>
@@ -77,7 +310,7 @@
         <section data-background-iframe="https://arxiv.org/pdf/1801.05075.pdf">
         </section>
 
-        <section>
+        <section class="center">
             <h2>Computational Measures</h2>
             <h4>Dozens of approaches </h4>
             <h4>No established standards</h4>
@@ -89,7 +322,7 @@
         </section>
 
 
-        <section>
+        <section class="center">
             <h2>Infidelity</h2>
             <h4>How much explanation differ given a perturbed input image</h4>
         </section>
@@ -101,7 +334,7 @@
         </section>
 
 
-        <section>
+        <section class="center">
             <h2>Infidelity</h2>
 
             <pre data-id="code-animation"><code class="python" data-trim data-line-numbers="">
@@ -122,24 +355,24 @@ infidelity(net, perturb_fn, input, attribution)
 					</code></pre>
         </section>
 
-        <section>
+        <section class="center">
             <h2>Other</h2>
             <h4>We remove "important" inputs and network confidence should decrease</h4>
         </section>
 
-        <section>
+        <section class="center">
             <h2>XAI challenges</h2>
             <h4>How to explain a wrong prediction</h4>
             <img src="assets/wrong_pred.png">
         </section>
 
-        <section>
+        <section class="center">
             <h2>Wrong prediction</h2>
             <h4>Explanation makes even less sense</h4>
             <img src="assets/wrong_pred_cats.png">
         </section>
 
-        <section>
+        <section class="center">
             <h2>XAI challenges</h2>
             <h4>Hyperparameters have a massive impact on a given explanation</h4>
         </section>
@@ -147,7 +380,7 @@ infidelity(net, perturb_fn, input, attribution)
         <section data-background-iframe="https://distill.pub/2020/attribution-baselines/">
         </section>
 
-        <section>
+        <section class="center">
             <h2>Ok, I'm hyped</h2>
             <h4>Where I should start my PhD</h4>
         </section>
@@ -162,7 +395,7 @@ infidelity(net, perturb_fn, input, attribution)
 
 
 
-        <section>
+        <section class="center">
             <h2>TLDR</h2>
             <ul>
                 <li>XAI methods doesn't always work great</li>
@@ -172,7 +405,15 @@ infidelity(net, perturb_fn, input, attribution)
             </ul>
         </section>
 
-        <section>
+        <section class="center">
+            <h3>References</h3>
+            <ul class="small">
+                <li><a href="https://arxiv.org/abs/1602.04938">"Why Should I Trust You?": Explaining the Predictions of Any Classifier - 2016, M. Ribeiro, S. Singh, C. Guestrin</a></li>
+                <li><a href="https://arxiv.org/abs/1703.01365">Axiomatic Attribution for Deep Networks - 2017, M. Sundararajan, A. Taly, Q. Yan</a></li>
+            </ul>
+        </section>
+
+        <section class="center">
             <h2>Thanks</h2>
             <blockquote>"There's no such thing as a stupid question!"</blockquote>
             <p>
@@ -199,7 +440,7 @@ infidelity(net, perturb_fn, input, attribution)
         progress: true,
         slideNumber: true,
         overview: true,
-        center: true,
+        center: false,
         navigationMode: 'default',
         fragmentInURL: false,
         embedded: false,
@@ -209,6 +450,8 @@ infidelity(net, perturb_fn, input, attribution)
         defaultTiming: 120,
         mouseWheel: false,
         previewLinks: false,
+        width: '100%',
+        height: '100%',
         transition: 'slide', // none/fade/slide/convex/concave/zoom
         transitionSpeed: 'fast', // default/fast/slow
         backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
