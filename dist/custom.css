@@ -28,3 +28,11 @@
 .small {
     font-size: 0.6em !important;
 }
+
+.no-margin {
+    margin: 0 !important;
+}
+
+.no-margin img {
+    margin: 0 !important;
+}

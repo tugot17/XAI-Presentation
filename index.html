@@ -30,8 +30,8 @@
         >
             <div
               style="text-align: right; margin-top: 25vh">
-            <h2 style="text-align: center; width: 35%; margin-left: auto; white-space: nowrap; font-size: 2.81em;">Explainable <br/>AI</h2>
-            <small style="text-align: center; width: 35%; margin-left: auto; font-size: 0.71em;">Kemal Erdem, Piotr Mazurek, Piotr Rarus</small>
+            <h2 style="text-align: center; width: 25%; margin-left: auto; white-space: nowrap; font-size: unset; font-weight: bold">Explainable <br/>AI</h2>
+            <small style="text-align: center; width: 25%; margin-left: auto; font-size: 0.71em;">Kemal Erdem, Piotr Mazurek, Piotr Rarus</small>
 
             </div>
         </section>
@@ -58,11 +58,11 @@
         <section class="center">
             <span class="heading">Wrong Decisions might be costly</span>
             <p class="display-row">
-            <p>
-                <img src="assets/p1/tesla-crash2.jpg">
-                <img src="assets/p1/tesla-crash1.jpg">
-            </p>
-            <small class="caption">Source: <a href="https://taiwanenglishnews.com/tesla-on-autopilot-crashes-into-overturned-truck/">https://taiwanenglishnews.com/tesla-on-autopilot-crashes-into-overturned-truck/</a></small>
+                <p  class="display-column">
+                    <img src="assets/p1/tesla-crash2.jpg">
+                    <img src="assets/p1/tesla-crash1.jpg">
+                </p>
+                <small class="caption">Source: <a href="https://taiwanenglishnews.com/tesla-on-autopilot-crashes-into-overturned-truck/">https://taiwanenglishnews.com/tesla-on-autopilot-crashes-into-overturned-truck/</a></small>
             </p>
         </section>
 
@@ -89,11 +89,11 @@
                 <img src="assets/p1/gdpr.jpg" style="height: 20vh">
                 <img src="assets/p1/congress.png" style="height: 20vh">
             </p>
-            <blockquote>"Article 22 of <b>GDPR</b> empowers individuals with
+            <blockquote style="font-size: 0.8em">"Article 22 of <b>GDPR</b> empowers individuals with
                 the <b>right to demand an explanation of how
                 an AI system made a decision that affects
                     them</b>" - <span style="text-transform: none !important; font-style: normal !important;">European Commission</span></blockquote>
-            <blockquote>"Provide an <b>assessment of the risks posed by
+            <blockquote style="font-size: 0.8em">"Provide an <b>assessment of the risks posed by
                 the automated decision system</b> to the privacy or security and the <b>risks that contribute to inaccurate, unfair,
                 biased, or discriminatory decisions</b> impacting consumers" - <span style="text-transform: none !important; font-style: normal !important;">Algorithmic Accountability Act 2019</span></blockquote>
         </section>
@@ -132,20 +132,20 @@
         <section class="center">
             <span class="heading-secondary">LIME - Local Interpretable Model agnostic Explanations</span><br/><br/>
             <div class="r-stack">
-                <p class="display-row">
-                    <img src="assets/p1/lime1.png" style="height: 70vh">
+                <p class="display-row no-margin">
+                    <img src="assets/p1/lime1.png" style="height: 60vh">
                     <small class="caption">Source: <a href="https://christophm.github.io/interpretable-ml-book/index.html">Interpretable Machine Learning - Christoph Molnar</a></small>
                 </p>
-                <p class="display-row fragment">
-                    <img src="assets/p1/lime2.png" style="height: 70vh">
+                <p class="display-row no-margin fragment">
+                    <img src="assets/p1/lime2.png" style="height: 60vh">
                     <small class="caption">Source: <a href="https://christophm.github.io/interpretable-ml-book/index.html">Interpretable Machine Learning - Christoph Molnar</a></small>
                 </p>
-                <p class="display-row fragment">
-                    <img src="assets/p1/lime3.png" style="height: 70vh">
+                <p class="display-row no-margin fragment">
+                    <img src="assets/p1/lime3.png" style="height: 60vh">
                     <small class="caption">Source: <a href="https://christophm.github.io/interpretable-ml-book/index.html">Interpretable Machine Learning - Christoph Molnar</a></small>
                 </p>
-                <p class="display-row fragment">
-                    <img src="assets/p1/lime4.png" style="height: 70vh">
+                <p class="display-row no-margin fragment">
+                    <img src="assets/p1/lime4.png" style="height: 60vh">
                     <small class="caption">Source: <a href="https://christophm.github.io/interpretable-ml-book/index.html">Interpretable Machine Learning - Christoph Molnar</a></small>
                 </p>
             </div>
@@ -158,7 +158,7 @@
         </section>
         <section class="center">
             <span class="heading">Integrated Gradients</span><br/><br/>
-            <p class="display-row">
+            <p class="display-row" style="font-size: 0.8em;">
                 $$
                 IntegratedGrads_{i}(x) ::= (x_{i} - x'_{i})\times\int_{\alpha=0}^1\frac{\partial F(x'+\alpha \times (x - x'))}{\partial x_i}{d\alpha}
                 $$
@@ -197,7 +197,7 @@
             <div class="display-row">
                 <div style="display: flex">
                     <img src="assets/p1/baseline-img.png" style="height: 30vh" />
-                    <div style="width: 50vw; font-size: 0.6em; padding-top: 5vh;">$$IntegratedGrads^{approx}_{i}(x)::=(x_{i}-x'_{i})\times\sum_{k=1}^{m}\frac{\partial F(\overbrace{x' + \frac{k}{m}\times(x - x')}^\text{interpolate m images at k intervals})}{\partial x_{i} } \times \frac{1}{m}$$
+                    <div style="width: 50vw; font-size: 0.4em; padding-top: 5vh;">$$IntegratedGrads^{approx}_{i}(x)::=(x_{i}-x'_{i})\times\sum_{k=1}^{m}\frac{\partial F(\overbrace{x' + \frac{k}{m}\times(x - x')}^\text{interpolate m images at k intervals})}{\partial x_{i} } \times \frac{1}{m}$$
                     </div>
                 </div>
                 <img src="assets/p1/gp-alpha.png" style="height: 30vh" />
@@ -207,7 +207,7 @@
         <section class="center">
             <span class="heading">Compute Gradients</span><br/><br/>
             <div class="display-row">
-                <div>
+                <div style="font-size: 0.8em;">
                     $$
                     IntegratedGrads^{approx}_{i}(x)::=(x_{i}-x'_{i})\times\sum_{k=1}^{m}\frac{\overbrace{\partial F(\text{interpolated images})}^\text{compute gradients} }{\partial x_{i} } \times \frac{1}{m}
                     $$
@@ -218,7 +218,7 @@
         <section class="center">
             <span class="heading">Compute Gradients</span><br/><br/>
             <div class="display-row">
-                <div style="font-size: 0.8em;">
+                <div style="font-size: 0.6em;">
                     $$
                     IntegratedGrads^{approx}_{i}(x)::=(x_{i}-x'_{i})\times \overbrace{\sum_{k=1}^{m} }^\text{Sum m local gradients}
                     \text{gradients(interpolated images)} \times \overbrace{\frac{1}{m} }^\text{Divide by m steps}
@@ -253,7 +253,7 @@
         <section class="center">
             <span class="heading">Contrastive Explanations</span><br/><br/>
             <span >Why Spoonbill, rather than Flamingo?</span><br/><br/>
-            <p class="display-row">
+            <p class="display-row no-margin">
                 <div>
                     <img src="assets/p1/contrastive-gradcam.png" style="height: 50vh" />
                     <img src="assets/p1/contrastive-example.png" style="height: 50vh" />
@@ -264,7 +264,7 @@
         <section class="center">
             <span class="heading">Counterfactual / Recourse Based Explanations</span><br/><br/>
             <span>How to change X to predict Y?</span><br/><br/>
-            <p class="display-row">
+            <p class="display-row no-margin">
                 <img src="assets/p1/counterfactual.png" style="height: 50vh" />
                 <small class="caption">Source: <a href="https://arxiv.org/abs/2009.05487">Counterfactual Explanations & Adversarial Examples -- Common Grounds, Essential Differences, and Potential Transfers - 2020 - T. Freiesleben</a></small>
             </p>
