@@ -67,7 +67,7 @@
         </section>
 
         <section class="center">
-            <span class="heading">But XIA can help us improve models</span>
+            <span class="heading">But XAI can help us improve models</span>
             <p class="display-row">
                 <img src="assets/p1/improve-model.png" style="height: 60vh">
                 <small class="caption">Source: W. Samek, A. Binder, MICCAI’18</small>
@@ -277,6 +277,270 @@
             </p>
         </section>
 
+        <section class="center" data-auto-animate>
+            <h2>How to use it</h2>
+            <h4>Available Tools</h4>
+        </section>
+
+        <section class="center" data-auto-animate>
+            <h2>How to use it</h2>
+            <h4>Available Tools</h4>
+            <ol class="small">
+                <li>Captum</li>
+                <li>tf-explain</li>
+                <li>Lime</li>
+                <li>SHAP</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Captum</h2>
+            <ul>
+                <li>Dedicated to interpret torch-based models</li>
+                <li>Developed by Facebook under Facebook Open Source</li>
+                <li>Available on pypi</li>
+                <li>Used to develop and troubleshoot models</li>
+                <li>Can be used on production to help users understand model's prediction</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Available Methods</h2>
+            <ul>
+                <li>Primary Attribution: Evaluates contribution of each input feature to the output of a model.</li>
+                <ul class="small">
+                    <li>Integrated Gradients</li>
+                    <li>Gradient SHAP</li>
+                    <li>Saliency</li>
+                    <li>Guided Backpropagation, Deconvolution</li>
+                    <li>Guided GradCAM</li>
+                </ul>
+                <li>Layer Attribution: Evaluates contribution of each neuron in a given layer to the output of the model.</li>
+                <ul class="small">
+                    <li>Layer Conductance</li>
+                    <li>Internal Influence</li>
+                    <li>Layer Activation</li>
+                    <li>GradCAM</li>
+
+                </ul>
+                <li>Neuron Attribution: Evaluates contribution of each input feature on the activation of a particular hidden neuron.</li>
+                <ul class="small">
+                    <li>Neuron Conductance</li>
+                    <li>Neuron Integrated Gradients</li>
+                    <li>Neuron GradientSHAP</li>
+                </ul>
+            </ul>
+        </section>
+
+        <section data-background-iframe="https://captum.ai/">
+        </section>
+
+        <section>
+            <h2>Example</h2>
+            <pre><code data-trim data-noescape class="python">
+                from captum.attr import GuidedGradCam
+                from torchvision import models
+
+                # Load pretrained AlexNet
+                alexnet = models.alexnet(pretrained=True)
+                alexnet.eval()
+
+                # Create object to interpret the model
+                # To make GradCam work we pass reference to last conv layer
+                guided_gc = GuidedGradCam(alexnet, alexnet.features[10])
+
+                # Predict output on data
+                out = alexnet(batch)
+
+                # Point out classes with highest score
+                score, index = out.max(1)
+
+                # Use interpreter to calculate attributions
+                attributions = guided_gc.attribute(batch_t, index)
+            </code></pre>
+        </section>
+
+        <section>
+            <h2>Captum Insights</h2>
+            <pre><code data-trim data-noescape class="python">
+                import torch
+                import torch.nn.functional as F
+                from captum.insights import AttributionVisualizer
+                from captum.insights.features import ImageFeature
+                from torchvision import models
+
+                # Load pretrained AlexNet
+                alexnet = models.alexnet(pretrained=True)
+                alexnet.eval()
+
+                # Launch visualization inside the notebook
+                visualizer = AttributionVisualizer(
+                    models=[alexnet],
+                    score_func=lambda o: F.softmax(o, 1),
+                    classes=[...],  # class labels
+                    features=[
+                        ImageFeature(
+                            "Photo",
+                            baseline_transforms=[...],
+                            input_transforms=[...],
+                        )
+                    ],
+                    dataset=...,
+                )
+
+                visualizer.render()
+            </code></pre>
+        </section>
+
+        <section>
+            <h2>Captum Insights</h2>
+            <img src="assets/tools/captum_insights.png">
+        </section>
+
+        <section>
+            <h2>tf-explain</h2>
+            <ul>
+                <li>Dedicated to interpret TensorFlow-based models</li>
+                <li>No official backing from a large company</li>
+                <li>Available on pypi</li>
+                <li>Used to develop and troubleshoot models</li>
+                <li>Can be used on production to help users understand model's prediction</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Available Methods</h2>
+            <ul>
+                <li>Activations Visualization</li>
+                <li>Vanilla Gradients</li>
+                <li>Gradients*Inputs</li>
+                <li>Occlusion Sensitivity</li>
+                <li>Grad CAM</li>
+                <li>SmoothGrad</li>
+                <li>Integrated Gradients</li>
+            </ul>
+        </section>
+
+        <section data-background-iframe="https://tf-explain.readthedocs.io/en/latest/">
+        </section>
+
+        <section>
+            <h2>Usage - Core API</h2>
+            <pre><code data-trim data-noescape class="python">
+                from tf_explain.core.grad_cam import GradCAM
+
+                explainer = GradCAM()
+
+                output = explainer.explain(*explainer_args)
+
+                explainer.save(output, output_dir, output_name)
+            </code></pre>
+        </section>
+
+        <section>
+            <h2>Usage - Callbacks</h2>
+            <pre><code data-trim data-noescape class="python">
+                from tf_explain.callbacks.grad_cam import GradCAMCallback
+
+                callbacks = [
+                    GradCAMCallback(
+                        validation_data=(x_val, y_val),
+                        layer_name="activation_1",
+                        class_index=0,
+                        output_dir=output_dir,
+                    )
+                ]
+                
+                model.fit(x_train, y_train, batch_size=2, epochs=2, callbacks=callbacks)
+            </code></pre>
+        </section>
+
+        <section>
+            <h2>Lime</h2>
+            <ul>
+                <li>Applicable to any black-box classifier</li>
+                <li>Works on text, tabular and image data</li>
+                <li>Available on pypi</li>
+            </ul>
+        </section>
+
+        <section data-background-iframe="https://github.com/marcotcr/lime">
+        </section>
+
+        <section>
+            <h2>Usage</h2>
+            <pre><code data-trim data-noescape class="python">
+                from lime import lime_image
+
+                explainer = lime_image.LimeImageExplainer()
+                
+                explanation = explainer.explain_instance(
+                    image, # input image
+                    predict, # predict function of interpreted classifier
+                )
+            </code></pre>
+            <div>
+                <table>
+                    <tr>
+                        <td>
+                            <p class="display-row">
+                                <img src="assets/tools/lime_example_1.png">
+                                <small class="caption">Input image</small>
+                            </p>   
+                        </td>
+                        <td>
+                            <p class="display-row">
+                                <img src="assets/tools/lime_example_2.png">
+                                <small class="caption">Interpretation of dog prediction</small>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+                <small class="caption">Green areas are contributing positively to prediction, red areas have negative effect on prediction</small>
+            </div>
+        </section>
+
+        <section data-background-iframe="https://github.com/slundberg/shap">
+        </section>
+
+        <section>
+            <h2>DeepShap - Usage</h2>
+            <pre><code data-trim data-noescape class="python">
+                import numpy as np
+                import shap
+
+                model = ... # classifier model
+                images = ... # image date set
+                background = images[:100]
+                test_images = images[100:103]
+
+                explainer = shap.DeepExplainer(model, background)
+                shap_values = e.shap_values(test_images)
+
+                shap_numpy = [np.swapaxes(np.swapaxes(s, 1, -1), 1, 2) for s in shap_values]
+                test_numpy = np.swapaxes(np.swapaxes(test_images.numpy(), 1, -1), 1, 2)
+
+                shap.image_plot(shap_numpy, -test_numpy)
+            </code></pre>
+        </section>
+
+        <section>
+            <h2>DeepShap - Example</h2>
+            <p class="display-row">
+                <img src="assets/tools/shap_example_1.png" style="height: 45vh">
+                <small class="caption">Contribution of features to each class prediction</small>
+            </p>
+        </section>
+
+        <section>
+            <h2>SHAP - Gradient Explainer</h2>
+            <small class="heading">Combines Integrated Gradients, SHAP and SmoothGrad into single interpretation method.</small>
+            <p class="display-row">
+                <img src="assets/tools/shap_example_2.png" style="height: 60vh">
+                <small class="caption">Contribution of features to 2 top predictions</small>
+            </p>
+        </section>
+
         <section class="center">
             <h2>XAI challenges</h2>
             <h4>How to evaluate explanation?</h4>
@@ -287,19 +551,18 @@
         </section>
 
         <section class="center">
-            <h2>How to Evaluate XAI?</h2>
-            <a href="https://github.com/SinaMohseni/Awesome-XAI-Evaluation#how-to-evaluate-xai"><img
-                    src="https://raw.githubusercontent.com/SinaMohseni/Awesome-XAI-Evaluation/master/figures/target-users.png"></a>
-        </section>
-
-        <section data-background-iframe="https://distill.pub/2020/attribution-baselines/">
-        </section>
-
-        <section class="center">
             <h2>Two distinct approaches</h2>
             <h4>Human-grounded Measures</h4>
             <h4>Computational Measures</h4>
         </section>
+
+        <section data-background="assets/xai-evaluation-resources.png">
+        </section>
+
+        <section data-background="assets/xai-evaluation-resources-2.png">
+        </section>
+
+
 
         <section class="center">
             <h2>Human-grounded Measures</h2>
@@ -363,13 +626,13 @@ infidelity(net, perturb_fn, input, attribution)
         <section class="center">
             <h2>XAI challenges</h2>
             <h4>How to explain a wrong prediction</h4>
-            <img src="assets/wrong_pred.png">
+            <img src="assets/wrong_pred.png"> <img src="assets/wrong_pred_2.png">
         </section>
 
         <section class="center">
             <h2>Wrong prediction</h2>
             <h4>Explanation makes even less sense</h4>
-            <img src="assets/wrong_pred_cats.png">
+            <a href="http://heatmapping.org"><img src="assets/wrong_pred_cats.png" width="50%"></a>
         </section>
 
         <section class="center">
