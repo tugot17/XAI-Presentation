@@ -1,5 +1,5 @@
 captum==0.3.0
-Flask==1.1.2
+Flask==2.3.2
 jupyter==1.0.0
 -f https://download.pytorch.org/whl/torch_stable.html
 torch==1.7.1+cpu
